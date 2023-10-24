@@ -77,12 +77,12 @@ class Reservations(models.Model):
     cruise_number = models.ForeignKey(Cruise, on_delete=models.CASCADE)
 
     # note: питай Стойчев да го променим това на one-to-many връзка вместо отделни колони
-    name = 0
-    middle_name = 0
-    surname = 0
-    EGN = 0
-    phone_number = 0
-    nationality = 0
+    # name = 0
+    # middle_name = 0
+    # surname = 0
+    # EGN = 0
+    # phone_number = 0
+    # nationality = 0
 
     ticket_type = models.CharField(
         max_length=8,
