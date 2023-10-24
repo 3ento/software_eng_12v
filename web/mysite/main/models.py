@@ -78,7 +78,7 @@ class Reservations(models.Model):
 
     # note: питай Стойчев да го променим това на one-to-many връзка вместо отделни колони
     # name = 0
-    # middle_name = 0
+    # middle_name =
     # surname = 0
     # EGN = 0
     # phone_number = 0
