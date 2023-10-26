@@ -1,18 +1,28 @@
-from django.contrib.auth import get_user_model
-from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractBaseUser, PermissionsMixin
+
 from main.managers import AppUserManager
 
 
-class AppUser(User):
+class SeaManagerCruiseUser(AbstractBaseUser, PermissionsMixin):
+
+    username = models.CharField(
+        max_length=30,
+        unique=True
+    )
+
+    USERNAME_FIELD = 'username'
+
     name = models.CharField(
         max_length=30
     )
 
     surname = models.CharField(
         max_length=30
+    )
+
+    email = models.EmailField(
+        default='email@example.com'
     )
 
     EGN = models.CharField(
@@ -27,23 +37,46 @@ class AppUser(User):
         max_length=15
     )
 
+    is_staff = models.BooleanField(
+        default=False,
+    )
+
+    objects = AppUserManager()
+
+    def __str__(self):
+        return f'{self.name} {self.surname}'
+
+
+class Captain(models.Model):
+
+    name = models.CharField(
+        max_length=30
+    )
+    surname = models.CharField(
+        max_length=30
+    )
+
+    def __str__(self):
+        return f'{self.name} {self.surname}'
+
+
+class CruiseLocation(models.Model):
+
+    name = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
 
 class Cruise(models.Model):
-    # TODO:
-    #  1. make from-to location a choice field from all possible locations cruises go (i.e make a cruise_locations model)
-    #  2. make captains a choice from a Captains model
 
     CRUISE_TYPES = [
         ("Week-long", "Week-long"),
         ("Day-long", "Day-long")
     ]
 
-    from_location = models.CharField(
-        max_length=50
-    )
-    to_location = models.CharField(
-        max_length=50
-    )
+    from_location = models.ForeignKey(CruiseLocation, related_name="from-location+", on_delete=models.CASCADE)
+    to_location = models.ForeignKey(CruiseLocation, related_name="to-location+", on_delete=models.CASCADE)
 
     departure_date_time = models.DateTimeField()
     arrival_date_time = models.DateTimeField()
@@ -57,34 +90,29 @@ class Cruise(models.Model):
         unique=True
     )
 
-    captain_name = models.CharField(
-        max_length=50
-    )
+    captain_name = models.ForeignKey(Captain, on_delete=models.CASCADE)
 
     econ_total_capacity = models.IntegerField()
     business_total_capacity = models.IntegerField()
 
-    econ_free_spaces_left = 0
-    business_free_spaces_left = 0
+    def __str__(self):
+        return f'{self.type} cruise: {self.from_location} - {self.to_location}'
 
-
-class Reservations(models.Model):
+class Reservation(models.Model):
     TICKET_TYPES = [
         ("Economy", "Economy"),
         ("Business", "Business")
     ]
 
-    cruise_number = models.ForeignKey(Cruise, on_delete=models.CASCADE)
+    cruise = models.ForeignKey(Cruise, on_delete=models.CASCADE)
 
-    # note: питай Стойчев да го променим това на one-to-many връзка вместо отделни колони
-    # name = 0
-    # middle_name =
-    # surname = 0
-    # EGN = 0
-    # phone_number = 0
-    # nationality = 0
+    # name, middle_name, surname, EGN, phone_number, nationality
+    cruise_reservee = models.ForeignKey(SeaManagerCruiseUser, default=0, on_delete=models.CASCADE)
 
     ticket_type = models.CharField(
         max_length=8,
         choices=TICKET_TYPES
     )
+
+    def __str__(self):
+        return f'Reservation for {self.cruise}, by {self.cruise_reservee}'
