@@ -5,6 +5,16 @@
     <title>Home</title>
 </head>
 <body>
-    hi
+    <a href="{% url 'cruise_create' %}">Add cruise</a>
+    <br>
+    <a href="{% url 'cruise_list' %}">All cruises</a>
+    <br><br>
+    <a href="{% url 'captain_create' %}">Add captain</a>
+    <br>
+    <a href="{% url 'captain_list' %}">All captains</a>
+    <br><br>
+    <a href="{% url 'location_create' %}">Add location</a>
+    <br>
+    <a href="{% url 'location_list' %}">All locations</a>
 </body>
 </html>
