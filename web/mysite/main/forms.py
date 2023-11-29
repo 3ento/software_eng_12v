@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from main.models import Cruise, CruiseLocation, Captain, SeaManagerCruiseUser
+from main.models import Cruise, CruiseLocation, Captain, SeaManagerCruiseUser, Reservation
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
@@ -98,4 +98,9 @@ class CreateUserForm(BootstrapFormMixin, UserCreationForm):
 
     class Meta:
         model = SeaManagerCruiseUser
+        fields = '__all__'
+
+class ReservationCreateForm():
+    class Meta:
+        model = Reservation
         fields = '__all__'

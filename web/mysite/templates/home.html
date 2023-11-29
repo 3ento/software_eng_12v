@@ -5,7 +5,11 @@
     <title>Home</title>
 </head>
 <body>
+    {% if request.user.is_authenticated %}
     <h1>Hello {{request.user.username}}</h1>
+    {% else %}
+    <h1>Hello mx. Anonymous!</h1>
+    {% endif %}
 
     <a href="{% url 'cruise_create' %}">Add cruise</a>
     <br>
@@ -19,10 +23,18 @@
     <br>
     <a href="{% url 'location_list' %}">All locations</a>
     <br><br>
+    <a href="{% url 'reservation_list' %}">All reservations</a>
+    {% if not request.user.is_authenticated %}
+    <br><br>
     <a href="{% url 'profile_create' %}">Register</a>
     <br>
     <a href="{% url 'log in' %}">Log In</a>
     <br>
+    {% else %}
+    <br>
+    <a href="{% url 'reserve' %}">Make reservation</a>
+    <br><br>
     <a href="{% url 'logout' %}" style="color: red;">Log Out</a>
+    {% endif %}
 </body>
 </html>
