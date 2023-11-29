@@ -39,6 +39,7 @@ class SeaManagerCruiseUser(AbstractBaseUser, PermissionsMixin):
 
     is_staff = models.BooleanField(
         default=False,
+        blank=True,
     )
 
     objects = AppUserManager()

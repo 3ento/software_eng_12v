@@ -5,6 +5,8 @@
     <title>Home</title>
 </head>
 <body>
+    <h1>Hello {{request.user.username}}</h1>
+
     <a href="{% url 'cruise_create' %}">Add cruise</a>
     <br>
     <a href="{% url 'cruise_list' %}">All cruises</a>
@@ -16,5 +18,11 @@
     <a href="{% url 'location_create' %}">Add location</a>
     <br>
     <a href="{% url 'location_list' %}">All locations</a>
+    <br><br>
+    <a href="{% url 'profile_create' %}">Register</a>
+    <br>
+    <a href="{% url 'log in' %}">Log In</a>
+    <br>
+    <a href="{% url 'logout' %}" style="color: red;">Log Out</a>
 </body>
 </html>

@@ -1,0 +1,22 @@
+<h1 class="text-center">Login to Your Profile</h1>
+        {% if form.errors %}
+            <p style="color: red">Your username and password didn't match. Please try again.</p>
+        {% endif %}
+
+    {# Form #}
+            <hr>
+            <form method="POST">
+
+                {% csrf_token %}
+                <h4>Username: </h4>
+                {{ form.username }}
+
+                <h4>Password: </h4>
+                {{ form.password }}<i class="bi bi-eye-slash" id="togglePassword" style="position: absolute; right: 182px; top: 139px"></i>
+
+                <br>
+                <!--<a href="{% url 'profile_create' %}">Don't have an account? Register here!</a> #}-->
+                <br>
+                <input type="submit" value="Log In"></input>
+
+            </form>

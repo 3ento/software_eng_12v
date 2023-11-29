@@ -11,4 +11,8 @@ urlpatterns = [
 
     path("location_create/", views.LocationCreateView.as_view(), name="location_create"),
     path("locations/", views.LocationListView.as_view(), name="location_list"),
+
+    path("profile_create/", views.ProfileCreate.as_view(), name="profile_create"),
+    path("log_in/", views.UserLoginView.as_view(), name="log in"),
+    path("logout/", views.LogoutView.as_view(), name="logout")
 ]
