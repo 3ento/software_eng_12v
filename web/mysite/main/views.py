@@ -18,7 +18,7 @@ class HomeView(TemplateView):
 class CruiseCreateView(CreateView):
     model = Cruise
     form_model = CreateCruise
-    template_name = "cruise_create.html"
+    template_name = "./cruise_views/cruise_create.html"
     fields = "__all__"
 
     success_url = reverse_lazy("cruise_list")
@@ -48,21 +48,21 @@ class CruiseDetailView(DetailView):
 
 class CruiseListView(ListView):
     model = Cruise
-    template_name = "cruise_list.html"
+    template_name = "./cruise_views/cruise_list.html"
     context_object_name = 'cruises'
 
 # Captains
 class CaptainCreateView(CreateView):
     model = Captain
     form_model = CreateCaptain
-    template_name = "captain_create.html"
+    template_name = "./captain_views/captain_create.html"
     fields = '__all__'
 
     success_url = reverse_lazy("home")
 
 class CaptainListView(ListView):
     model = Captain
-    template_name = "captain_list.html"
+    template_name = "./captain_views/captain_list.html"
     context_object_name = 'captains'
 
 
@@ -70,21 +70,21 @@ class CaptainListView(ListView):
 class LocationCreateView(CreateView):
     model = CruiseLocation
     form_model = CreateLocation
-    template_name = "location_create.html"
+    template_name = "./location_views/location_create.html"
     fields = '__all__'
 
     success_url = reverse_lazy("home")
 
 class LocationListView(ListView):
     model = CruiseLocation
-    template_name = "location_list.html"
+    template_name = "./location_views/location_list.html"
     context_object_name = 'locations'
 
 
 # Reservations
 class ReservationCreateView(CreateView):
     model = Reservation
-    template_name = "reservation_create.html"
+    template_name = "./reservation_views/reservation_create.html"
     fields = '__all__'
 
     def form_valid(self, form):
@@ -97,7 +97,7 @@ class ReservationCreateView(CreateView):
 
 class ReservationListView(ListView):
     model = Reservation
-    template_name = 'reservation_list.html'
+    template_name = './reservation_views/reservation_list.html'
     context_object_name = 'reservations'
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
@@ -109,7 +109,7 @@ class ReservationListView(ListView):
 
 # Users
 class ProfileCreate(FormView):
-    template_name = 'profile_create.html'
+    template_name = './profile_views/profile_create.html'
     form_class = CreateUserForm
     redirect_authenticated_user = True
     success_url = reverse_lazy('home')
@@ -122,7 +122,7 @@ class ProfileCreate(FormView):
         return super(ProfileCreate, self).form_valid(form)
  
 class UserLoginView(LoginView):
-    template_name = 'login_page.html'
+    template_name = './profile_views/login_page.html'
     success_url = reverse_lazy('home')
 
     def get_success_url(self):
