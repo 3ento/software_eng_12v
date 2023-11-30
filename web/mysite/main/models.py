@@ -62,7 +62,7 @@ class Captain(models.Model):
 
 class CruiseLocation(models.Model):
 
-    name = models.TextField(null=True, blank=True)
+    name = models.CharField(null=True, blank=True, max_length=15)
 
     def __str__(self):
         return self.name

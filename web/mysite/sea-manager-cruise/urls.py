@@ -16,9 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from main.views_dir.views import HomeView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include('main.urls')),
-    path("cuise/", include('main.urls_dir.cruise_urls'))
+    path("", HomeView.as_view(), name="home"),
+    path("cuise/", include('main.urls_dir.cruise_urls')),
+    path("captain/", include('main.urls_dir.captain_urls')),
+    path("location/", include('main.urls_dir.location_urls')),
+    path("reservation/", include('main.urls_dir.reservation_urls')),
+    path("profile/", include('main.urls_dir.profile_urls')),
 ]

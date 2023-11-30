@@ -1,5 +1,8 @@
 <h1>All cruises:</h1>
 
 {% for cruise in cruises %}
-<li> {{ cruise }}  <a href="{% url 'cruise_edit' cruise.id %}">Edit</a> <a href="{% url 'cruise_details' cruise.id %}">Details</a> </li> 
+<li> {{ cruise }}  
+    <a href="{% url 'cruise_edit' cruise.id %}">Edit</a> 
+    <a href="{% url 'cruise_details' cruise.id %}">Details</a> 
+    <a style="color: red;" href="{% url 'cruise_delete' cruise.id %}">Delete</a> </li> 
 {% endfor %}

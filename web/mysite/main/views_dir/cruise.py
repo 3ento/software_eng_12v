@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from main.models import Cruise, Reservation
 from main.forms import CreateCruise
 from django.urls import reverse_lazy
@@ -40,3 +40,10 @@ class CruiseListView(ListView):
     template_name = "./cruise_views/cruise_list.html"
     context_object_name = 'cruises'
 
+class CruiseDeleteView(DeleteView):
+    model = Cruise
+    template_name = './cruise_views/cruise_delete.html'
+    context_object_name = 'cruise'
+
+    def get_success_url(self):
+        return reverse_lazy('cruise_list')
