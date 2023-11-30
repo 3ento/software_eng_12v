@@ -1,5 +1,8 @@
 <h1>All locations:</h1>
 
 {% for location in locations %}
-<li> {{ location.name }}</li>
+<li> {{ location.name }}
+    <a href="{% url 'location_edit' location.id %}">Edit</a>
+    <a style="color: red;" href="{% url 'location_delete' location.id %}">Delete</a>
+</li>
 {% endfor %}
