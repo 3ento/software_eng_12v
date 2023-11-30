@@ -1,5 +1,8 @@
 <h1>All captains:</h1>
 
 {% for cap in captains %}
-<li> {{ cap }}</li>
+<li> {{ cap }}
+    <a href="{% url 'captain_edit' cap.id %}">Edit</a>
+    <a style="color: red;" href="{% url 'captain_delete' cap.id %}">Delete</a>
+</li>
 {% endfor %}

@@ -5,7 +5,7 @@ from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
-from django.views.generic import FormView, CreateView, DetailView, ListView, UpdateView
+from django.views.generic import FormView, CreateView, DetailView, ListView, UpdateView, DeleteView
 from main.models import Cruise, CruiseLocation, Captain, Reservation, SeaManagerCruiseUser
 from main.forms import CreateCruise, CreateCaptain, CreateLocation, CreateUserForm, ReservationCreateForm
 
@@ -22,3 +22,18 @@ class CaptainListView(ListView):
     model = Captain
     template_name = "./captain_views/captain_list.html"
     context_object_name = 'captains'
+
+class CaptainEdit(UpdateView):
+    model = Captain
+    template_name = "./captain_views/captain_edit.html"
+    fields = '__all__'
+
+    success_url = reverse_lazy("captain_list")
+
+class CaptainDeleteView(DeleteView):
+    model = Captain
+    template_name = './captain_views/captain_delete.html'
+    context_object_name = 'captain'
+
+    def get_success_url(self):
+        return reverse_lazy('captain_list')
