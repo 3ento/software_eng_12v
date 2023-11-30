@@ -5,7 +5,7 @@ from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import FormView, CreateView, DetailView, ListView, UpdateView
 from main.models import Cruise, CruiseLocation, Captain, Reservation, SeaManagerCruiseUser
 from main.forms import CreateCruise, CreateCaptain, CreateLocation, CreateUserForm, ReservationCreateForm
 
@@ -21,7 +21,30 @@ class CruiseCreateView(CreateView):
     template_name = "cruise_create.html"
     fields = "__all__"
 
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("cruise_list")
+
+class CruiseUpdateView(UpdateView):
+    model = Cruise
+    template_name = "./cruise_views/cruise_edit.html"
+    fields = "__all__"
+
+    success_url = reverse_lazy("cruise_list")
+
+class CruiseDetailView(DetailView):
+    model = Cruise
+    template_name = "./cruise_views/cruise_details.html"
+    context_object_name = 'cruise'    
+
+    def get_context_data(self, **kwargs):
+        cruise = Cruise.objects.filter(id=self.object.id)
+        ctx = super().get_context_data(**kwargs)
+
+        ctx.update({
+            'econ_cc': cruise[0].econ_total_capacity - len(Reservation.objects.filter(cruise_id=self.object.id).filter(ticket_type="Economy")),
+            'bus_cc': cruise[0].business_total_capacity - len(Reservation.objects.filter(cruise_id=self.object.id).filter(ticket_type="Business")),
+        })
+
+        return ctx
 
 class CruiseListView(ListView):
     model = Cruise
@@ -64,9 +87,10 @@ class ReservationCreateView(CreateView):
     template_name = "reservation_create.html"
     fields = '__all__'
 
-    def form_valid(self, form: BaseModelForm) -> HttpResponse:
-        form.instance.user = self.request.user
-        
+    def form_valid(self, form):
+        form.instance.cruise_reservee = self.request.user
+        form.save()
+
         return super().form_valid(form)
 
     success_url = reverse_lazy('home')
@@ -84,18 +108,19 @@ class ReservationListView(ListView):
         return super().get_context_data(**kwargs)
 
 # Users
-class ProfileCreate(CreateView):
-    form_class = CreateUserForm
+class ProfileCreate(FormView):
     template_name = 'profile_create.html'
+    form_class = CreateUserForm
+    redirect_authenticated_user = True
     success_url = reverse_lazy('home')
 
-    
-    #def form_valid(self, *args, **kwargs):
-     #   result = super().form_valid(*args, **kwargs)
-      #  login(self.request, self.object)
-
- #       return result
-
+    def form_valid(self, form):
+        user = form.save()
+        if user is not None:
+            login(self.request, user)
+        
+        return super(ProfileCreate, self).form_valid(form)
+ 
 class UserLoginView(LoginView):
     template_name = 'login_page.html'
     success_url = reverse_lazy('home')

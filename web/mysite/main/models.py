@@ -1,10 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User, AbstractBaseUser, PermissionsMixin
-
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from main.managers import AppUserManager
 
 
-class SeaManagerCruiseUser(AbstractBaseUser, PermissionsMixin):
+class SeaManagerCruiseUser(AbstractBaseUser):
 
     username = models.CharField(
         max_length=30,
@@ -80,15 +79,10 @@ class Cruise(models.Model):
     to_location = models.ForeignKey(CruiseLocation, related_name="to-location+", on_delete=models.CASCADE)
 
     departure_date_time = models.DateTimeField()
-    arrival_date_time = models.DateTimeField()
 
     type = models.CharField(
         max_length=9,
         choices=CRUISE_TYPES
-    )
-
-    unique_cruise_number = models.IntegerField(
-        unique=True
     )
 
     captain_name = models.ForeignKey(Captain, on_delete=models.CASCADE)
@@ -108,12 +102,14 @@ class Reservation(models.Model):
     cruise = models.ForeignKey(Cruise, on_delete=models.CASCADE)
 
     # name, middle_name, surname, EGN, phone_number, nationality
-    cruise_reservee = models.ForeignKey(SeaManagerCruiseUser, default=0, on_delete=models.CASCADE)
+    cruise_reservee = models.OneToOneField(SeaManagerCruiseUser, on_delete=models.CASCADE, primary_key=False)
 
     ticket_type = models.CharField(
         max_length=8,
         choices=TICKET_TYPES
     )
 
+    number_of_tickets = models.IntegerField(default=1, blank=False, null=False)
+
     def __str__(self):
-        return f'Reservation for {self.cruise}, by {self.cruise_reservee}'
+        return f'{self.number_of_tickets} reservation(s) for {self.cruise}, by {self.cruise_reservee}'

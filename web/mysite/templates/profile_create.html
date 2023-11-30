@@ -7,51 +7,7 @@
     <form method="post" action="{% url 'profile_create' %}">
 
         {% csrf_token %}
-        Username:
-        <br>
-        {{form.username}}
-        <br>
-
-        Password:
-        <br>
-        {{form.password1}}
-        <br>
-
-
-        Confirm Password:
-        <br>
-        {{form.password2}}
-        <br>
-
-        Name:
-        <br>
-        {{form.name}}
-        <br>
-
-        Surname:
-        <br>
-        {{form.surname}}
-        <br>
-
-        Email:
-        <br>
-        {{form.email}}
-        <br>
-
-        EGN:
-        <br>
-        {{form.EGN}}
-        <br>
-
-        Address:
-        <br>
-        {{form.address}}
-        <br>
-
-        Phone Number:
-        <br>
-        {{form.phone_number}}
-        <br>
+        {{ form.as_p }}
 
         <br>
         <input type="submit" value="Submit"></input>
