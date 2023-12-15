@@ -6,15 +6,16 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class CreateCruise(forms.Form):
-
     class Meta:
         model = Cruise  
         fields = '__all__'
+
 
 class CreateCaptain(ModelForm):
     class Meta:
         model = Captain
         fields = '__all__'
+
 
 class CreateLocation(ModelForm):
     class Meta:
@@ -25,7 +26,8 @@ class CreateLocation(ModelForm):
 class CreateUserForm(ModelForm):
     class Meta:
         model = SeaManagerCruiseUser
-        fields = '__all__'
+        exclude = ('last_login',)
+
 
 class ReservationCreateForm(ModelForm):
     class Meta:

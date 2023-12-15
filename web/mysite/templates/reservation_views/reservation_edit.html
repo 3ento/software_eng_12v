@@ -10,8 +10,8 @@
     <p style="color: red">{{ form.errors }}</p>
     {% endif %}
 
-    {{pk}}
-    <form method="post" action="">
+    {{request.user.username}}
+    <form method="post" action="{% url 'reservation_edit'%}">
 
         <br>
         {% csrf_token %}

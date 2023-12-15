@@ -8,9 +8,11 @@ from django.views.generic import TemplateView
 from django.views.generic import FormView, CreateView, DetailView, ListView, UpdateView, DeleteView
 from main.models import Cruise, CruiseLocation, Captain, Reservation, SeaManagerCruiseUser
 from main.forms import CreateCruise, CreateCaptain, CreateLocation, CreateUserForm, ReservationCreateForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # Locations
-class LocationCreateView(CreateView):
+class LocationCreateView(LoginRequiredMixin, CreateView):
     model = CruiseLocation
     form_model = CreateLocation
     template_name = "./location_views/location_create.html"
@@ -23,14 +25,14 @@ class LocationListView(ListView):
     template_name = "./location_views/location_list.html"
     context_object_name = 'locations'
 
-class LocationEdit(UpdateView):
+class LocationEdit(LoginRequiredMixin, UpdateView):
     model = CruiseLocation
     template_name = "./location_views/location_edit.html"
     fields = '__all__'
 
     success_url = reverse_lazy("location_list")
 
-class LocationDeleteView(DeleteView):
+class LocationDeleteView(LoginRequiredMixin, DeleteView):
     model = CruiseLocation
     template_name = './location_views/location_delete.html'
     context_object_name = 'location'

@@ -5,3 +5,5 @@
 <h3>Captain: {{cruise.captain_name}}</h3>
 <h4>Capacity(econonmy): {{cruise.econ_total_capacity}} (remaining: {{econ_cc}})</h4>
 <h4>Capacity(business): {{cruise.business_total_capacity}} (remaining: {{bus_cc}})</h4>
+
+<a href="{% url 'reserve' cruise.id %}"><li>Make reservation</li></a>

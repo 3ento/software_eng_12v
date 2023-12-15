@@ -101,8 +101,7 @@ class Reservation(models.Model):
 
     cruise = models.ForeignKey(Cruise, on_delete=models.CASCADE)
 
-    # name, middle_name, surname, EGN, phone_number, nationality
-    cruise_reservee = models.OneToOneField(SeaManagerCruiseUser, on_delete=models.CASCADE, primary_key=False)
+    cruise_reservee = models.ForeignKey(SeaManagerCruiseUser, on_delete=models.CASCADE)
 
     ticket_type = models.CharField(
         max_length=8,

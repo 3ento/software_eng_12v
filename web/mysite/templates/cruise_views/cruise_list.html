@@ -2,6 +2,7 @@
 
 {% for cruise in cruises %}
 <li> {{ cruise }}  
+    <a href="{% url 'reserve' cruise.id %}">Make reservation</a>
     <a href="{% url 'cruise_edit' cruise.id %}">Edit</a> 
     <a href="{% url 'cruise_details' cruise.id %}">Details</a> 
     <a style="color: red;" href="{% url 'cruise_delete' cruise.id %}">Delete</a> </li> 
