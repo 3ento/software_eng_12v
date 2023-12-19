@@ -1,22 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form method="post" action="">
+{% extends 'forms_template.html' %}
+{% block content %}
 
-        <br>
+    <h2>Edit a cruise</h2>
+    <form method="post" action="{% url 'cruise_edit' cruise.id %}">
+
         {% csrf_token %}
         {{form.as_p}}
 
-        <br><input type="submit" value="submit"></input>
+        <button type="submit">Add</button>
     </form>
-</body>
+
 <script type="text/javascript">
     document.getElementById("id_departure_date_time").type = "datetime-local";
     document.getElementById("id_arrival_date_time").type = "datetime-local";
 </script>
-</html>
+
+{%endblock%}

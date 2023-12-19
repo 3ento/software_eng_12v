@@ -1,3 +1,8 @@
+{% extends 'forms_template.html' %}
+{% block content %}
+
+<h2>DELETE A CRUISE?</h2>
+<h4 style="color: red;">(ACTION CANNOT BE UNDONE)</h4>
 <form method="post" action="{% url 'cruise_delete' cruise.id %}">
 
     {% csrf_token %}
@@ -5,3 +10,5 @@
 
     <button class="btn btn-danger mt-2" type="submit" style="position: center">Delete</button>
 </form>
+
+{%endblock%}

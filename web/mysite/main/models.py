@@ -78,14 +78,14 @@ class Cruise(models.Model):
     from_location = models.ForeignKey(CruiseLocation, related_name="from-location+", on_delete=models.CASCADE)
     to_location = models.ForeignKey(CruiseLocation, related_name="to-location+", on_delete=models.CASCADE)
 
-    departure_date_time = models.DateTimeField()
-
     type = models.CharField(
         max_length=9,
         choices=CRUISE_TYPES
     )
 
     captain_name = models.ForeignKey(Captain, on_delete=models.CASCADE)
+
+    departure_date_time = models.DateTimeField()
 
     econ_total_capacity = models.IntegerField()
     business_total_capacity = models.IntegerField()

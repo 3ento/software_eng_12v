@@ -1,14 +1,40 @@
-<h1 class="text-center">Create Your Profile</h1>
-
-        {% if form.errors %}
+{% extends 'forms_template.html' %}
+{% block content %}
+    {% if form.errors %}
             <p style="color: red">{{ form.errors }}</p>
-        {% endif %}
+    {% endif %}
+    <div class="form-container" id="register-form">
+        <h2>Register</h2>
+        <form method="POST" action="{% url 'profile_create' %}">
+            {%csrf_token%}
 
-    <form method="post" action="{% url 'profile_create' %}">
+            {{form.username}}
+            {{form.name}}
+            {{form.surname}}
+            {{form.email}}
+            {{form.EGN}}
+            {{form.address}}
+            {{form.phone_number}}
+            {{form.password}}
+            
+            <div class="terms-checkbox">
+                <div class="checkbox"><input type="checkbox" id="termsCheckbox" required></div>
+                <label for="termsCheckbox">I agree to the <a href="terms_and_conditions.html" target="_blank">Terms and Conditions</a></label>
+            </div>
 
-        {% csrf_token %}
-        {{ form.as_p }}
-
-        <br>
-        <input type="submit" value="Submit"></input>
-    </form>
+            <button type="submit">Register</button>
+            
+        </form>
+        <p class="switch-form">Already have an account? <a href="{% url 'log in' %}">Log In</a></p>
+    </div>
+    <script>
+        document.getElementById('id_username').placeholder = "Username"
+        document.getElementById('id_name').placeholder = "First name"
+        document.getElementById('id_surname').placeholder = "Surname"
+        document.getElementById('id_email').placeholder = "Email"
+        document.getElementById('id_EGN').placeholder = "EGN"
+        document.getElementById('id_address').placeholder = "Address"
+        document.getElementById('id_phone_number').placeholder = "Phone Number"
+        document.getElementById('id_password').placeholder = "Password"
+    </script>
+{%endblock%}         

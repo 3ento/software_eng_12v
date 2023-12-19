@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'forms_template.html' %}
+{% block content %}
+    <h2>Add a location</h2>
     <form method="post" action="{% url 'location_create'%}">
 
-        <br>
         {% csrf_token %}
         {{form.as_p}}
 
-        <br><input type="submit" value="submit"></input>
+        <button type="submit">Add</button>
     </form>
-</body>
-</html>
+{%endblock%}
