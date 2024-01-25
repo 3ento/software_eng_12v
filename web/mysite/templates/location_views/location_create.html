@@ -5,7 +5,20 @@
 
         {% csrf_token %}
         {{form.as_p}}
+        <img id="cover-art" src="{{ location.image }}" style="width: 100%; height: 100%; object-fit: cover" alt="">
+
 
         <button type="submit">Add</button>
     </form>
+    <script>
+        function notEmpty() {
+
+          let e = document.getElementById("id_image");
+          document.getElementById('cover-art').src = e.value;
+
+        }
+        notEmpty()
+
+        document.getElementById("id_image").onchange = notEmpty;
+</script>
 {%endblock%}

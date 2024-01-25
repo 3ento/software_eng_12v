@@ -25,6 +25,18 @@ class CaptainListView(ListView):
     template_name = "./captain_views/captain_list.html"
     context_object_name = 'captains'
 
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        cruise = Cruise.objects.all()
+
+        def get_current_captains_cruises(curr_captain_id):
+            return cruise.filter(captain_name_id=curr_captain_id)
+
+        for el in self.object_list:
+            el.curr_cruises = get_current_captains_cruises(el.id)
+
+        return context
+
 class CaptainEdit(LoginRequiredMixin, UpdateView):
     model = Captain
     template_name = "./captain_views/captain_edit.html"

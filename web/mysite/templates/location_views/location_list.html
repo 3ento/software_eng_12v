@@ -1,8 +1,179 @@
-<h1>All locations:</h1>
+{% extends 'base.html' %}
+{% block base%}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Avenir Next", "Avenir", sans-serif;
+            overflow-x: hidden;
+            color: black;
+        }
 
-{% for location in locations %}
-<li> {{ location.name }}
-    <a href="{% url 'location_edit' location.id %}">Edit</a>
-    <a style="color: red;" href="{% url 'location_delete' location.id %}">Delete</a>
-</li>
-{% endfor %}
+        .card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .top {
+            height: 100%;
+            margin-bottom: -48px;
+            z-index: -1;
+        }
+
+        .top img {
+            border-radius: 8px;
+        }
+
+        .text {
+            height: 20%;
+            color: black;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: left;
+        }
+
+        .text-bg {
+            position: absolute;
+            background: lightgray;
+            border-radius: 8px;
+            filter: drop-shadow(0 0 0.75rem black);
+            width: 80%;
+            height: 250px;
+            z-index: -1;
+        }
+
+        .text h1,
+        h2,
+        h3 {
+            margin-bottom: 6px;
+        }
+
+        .content {
+            height: 250px;
+        }
+
+        .content h3 {
+            margin-bottom: 18px;
+        }
+
+
+        .ul-cards {
+            display: flex;
+            justify-content: space-between;
+            padding: 0;
+            flex-wrap: wrap;
+            padding: 24px 12px;
+        }
+
+
+        .cruise-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 33%;
+            height: 100%;
+            margin-top: 24px;
+        }
+
+        .cruise-card .top {
+            height: 45vh;
+            object-fit: cover;
+        }
+
+        .cruise-card .top img {
+            height: 100%;
+            width: 100%;
+        }
+
+        #main-content {
+            margin-bottom: 250px;
+        }
+
+        .cruise-card .bottom {
+            color: black;
+            background: lightgray;
+            border-radius: 8px;
+            box-shadow: 0 0 0.75rem black;
+            width: 80%;
+            height: 100%;
+            text-align: center;
+            padding: 12px;
+        }
+
+        .cruise-card .bottom li {
+            padding: 0;
+            margin: 0;
+        }
+
+        footer {
+            background-color: #0056b3;
+            width: 100%;
+            color: white;
+            padding: 12px;
+        }
+
+        .site {
+            padding: 24px;
+        }
+
+        svg {
+            height: 15px;
+            width: 15px;
+        }
+
+        .cruise-card a {
+            background-color: #0056b3; 
+            padding: 4px 8px; 
+            border-radius: 8px; 
+            color: white; text-decoration: none;
+        }
+
+        .crud {
+            visibility: hidden;
+        }
+
+        .cruise-card:hover{
+            .crud{
+                visibility: visible;
+            }
+        }
+
+    </style>
+    <title>Captains</title>
+</head>
+
+<body>
+    <div class="site">
+
+        <div class="cards">
+            <ul class="ul-cards">
+                {% for i in locations %}
+                <li class="cruise-card">
+                    {% if request.user.is_staff or request.user.is_superuser %}
+                    <div class="crud">
+                        <a href="{% url 'location_edit' i.id %}">Edit</a>
+                        <a style="background-color: red;" href="{% url 'location_delete' i.id %}">Delete</a>
+                    </div>
+                        
+                    {% endif %}
+                    <div class="top">
+                        <img src="{{i.image}}" alt="">
+                    </div>
+                    <div class="bottom">
+                        <h1 style="margin-bottom: 0;">{{i}}</h1>
+                        <p>{{i.description}}</p>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+{% endblock %}

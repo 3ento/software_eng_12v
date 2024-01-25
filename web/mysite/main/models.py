@@ -56,6 +56,10 @@ class Captain(models.Model):
         max_length=30
     )
 
+    profile_picture = models.URLField(
+        default='https://gcaptain.com/wp-content/uploads/2017/07/grumpy-ship-captain.jpeg'
+    )
+
     def __str__(self):
         return f'{self.name} {self.surname}'
 
@@ -63,6 +67,8 @@ class Captain(models.Model):
 class CruiseLocation(models.Model):
 
     name = models.CharField(null=True, blank=True, max_length=15)
+    image = models.URLField(default='https://www.planetware.com/wpimages/2021/10/best-tropical-vacations-mauritius-aerial.jpg')
+    description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -91,6 +97,10 @@ class Cruise(models.Model):
     business_total_capacity = models.IntegerField()
 
     image_main = models.URLField(default='https://images.pexels.com/photos/813011/pexels-photo-813011.jpeg')
+    image_1 = models.URLField(default='https://media.istockphoto.com/id/458115989/photo/cruise-ship-in-caribbean-sea.jpg?s=612x612&w=0&k=20&c=wMweujKOnZOpihjorKHEdgqI-LDMJkLF-LpV_FhtUWE=')
+    image_2 = models.URLField(default='https://media.istockphoto.com/id/1222173565/photo/cruise-ship-msc-seaside-at-cozumel-island-mexico.jpg?s=612x612&w=0&k=20&c=2w3dQqb196mclsS-oMbFEgYl3r7jgQZFgvKYdASUEMs=')
+    image_3 = models.URLField(default='https://media.istockphoto.com/id/516463721/photo/3d-cruise-ship-in-beautiful-ocean-with-blue-sky.jpg?s=612x612&w=0&k=20&c=97aWdauUuFSZwMXZ6Ky4TZDuxg9vhjDb98wFj0vwL3s=')
+    image_4 = models.URLField(default='https://media.istockphoto.com/id/1155311911/photo/luxury-cruise-ship-sailing-from-the-port-at-sunrise-across-the-ocean-beautiful-summer.jpg?s=612x612&w=0&k=20&c=im3OvbdWWN-vdwcVcSFMGKpmpbB97Elj5Nva8UXJlmA=')
 
     def __str__(self):
         return f'{self.type} cruise: {self.from_location} - {self.to_location}'

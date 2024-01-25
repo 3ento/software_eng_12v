@@ -29,6 +29,7 @@ class LocationEdit(LoginRequiredMixin, UpdateView):
     model = CruiseLocation
     template_name = "./location_views/location_edit.html"
     fields = '__all__'
+    context_object_name = 'location'
 
     success_url = reverse_lazy("location_list")
 

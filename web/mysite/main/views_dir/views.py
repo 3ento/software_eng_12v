@@ -17,11 +17,4 @@ class HomeView(ListView):
 
     template_name = "home.html"
 
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        
-        context.update({
-            'cruises': Cruise.objects.all(),
-        })
-        
-        return context
+    

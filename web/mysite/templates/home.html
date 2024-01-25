@@ -1,113 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
+{% extends 'base.html' %}
+{% block base%}
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: "Avenir Next", "Avenir", sans-serif;
-            overflow-x: hidden;
-            color: black;
-        }
-
-        #menuToggle {
-            display: block;
-            position: fixed;
-            top: 50px;
-            left: 50px;
-            z-index: 1;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        #menuToggle a {
-            text-decoration: none;
-            color: #232323;
-            transition: color 0.3s ease;
-        }
-
-        #menuToggle a:hover {
-            color: tomato;
-        }
-
-        #menuToggle input {
-            display: block;
-            width: 40px;
-            height: 32px;
-            position: absolute;
-            top: -7px;
-            left: -5px;
-            cursor: pointer;
-            opacity: 0;
-            z-index: 2;
-            -webkit-touch-callout: none;
-        }
-
-        #menuToggle span {
-            display: block;
-            width: 33px;
-            height: 4px;
-            margin-bottom: 5px;
-            position: relative;
-            background: black;
-            border-radius: 3px;
-            z-index: 1;
-            transform-origin: 4px 0px;
-            transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
-                background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
-                opacity 0.55s ease;
-        }
-
-        #menuToggle span:first-child {
-            transform-origin: 0% 0%;
-        }
-
-        #menuToggle span:nth-last-child(2) {
-            transform-origin: 0% 100%;
-        }
-
-        #menuToggle input:checked~span {
-            opacity: 1;
-            transform: rotate(45deg) translate(-2px, -1px);
-            background: #232323;
-        }
-
-        #menuToggle input:checked~span:nth-last-child(3) {
-            opacity: 0;
-            transform: rotate(0deg) scale(0.2, 0.2);
-        }
-
-        #menuToggle input:checked~span:nth-last-child(2) {
-            transform: rotate(-45deg) translate(0, -1px);
-        }
-
-        #menu {
-            position: absolute;
-            width: 300px;
-            margin: -100px 0 0 -50px;
-            padding: 50px;
-            padding-top: 125px;
-            height: 100vh;
-            background: #ededed;
-            list-style-type: none;
-            -webkit-font-smoothing: antialiased;
-            transform-origin: 0% 0%;
-            transform: translate(-100%, 0);
-            transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
-        }
-
-        #menu li {
-            padding: 10px 0;
-            font-size: 22px;
-        }
-
-        #menuToggle input:checked~ul {
-            transform: none;
-        }
-
         .greeting {
             margin: 12px;
         }
@@ -169,7 +65,7 @@
             position: absolute;
             background: lightgray;
             border-radius: 8px;
-            filter: drop-shadow(0 0 0.75rem black);
+            box-shadow: 0 0 0.75rem black;
             width: 80%;
             height: 250px;
             z-index: -1;
@@ -232,7 +128,7 @@
             color: black;
             background: lightgray;
             border-radius: 8px;
-            filter: drop-shadow(0 0 0.75rem black);
+            box-shadow: 0 0 0.75rem black;
             width: 80%;
             height: 200px;
             z-index: -1;
@@ -246,86 +142,18 @@
             padding: 12px;
         }
 
+        .site {
+            padding: 24px;
+        }
+
     </style>
 </head>
 
 <body>
 
     <div class="site">
-        <div class="header">
-            <nav role="navigation">
-                <div id="menuToggle">
-                    <!--
-              A fake / hidden checkbox is used as click reciever,
-              so you can use the :checked selector on it.
-              -->
-                    <input type="checkbox" />
-
-                    <!--
-              Some spans to act as a hamburger.
-              
-              They are acting like a real hamburger,
-              not that McDonalds stuff.
-              -->
-                    <span></span>
-                    <span></span>
-                    <span></span>
-
-                    <!--
-              Too bad the menu has to be inside of the button
-              but hey, it's pure CSS magic.
-              -->
-                    <ul id="menu">
-                        <a href="{% url 'cruise_list' %}">
-                            <li>All cruises</li>
-                        </a>
-                        {% if request.user.is_staff %}
-                        <a class="subop" href="{% url 'cruise_create' %}">
-                            <li>• Add cruise</li>
-                        </a>
-                        {% endif %}
-                        <a href="{% url 'captain_list' %}">
-                            <li>All captains</li>
-                        </a>
-                        {% if request.user.is_staff %}
-                        <a class="subop" href="{% url 'captain_create' %}">
-                            <li>• Add captain</li>
-                        </a>
-                        {% endif %}
-
-                        <a href="{% url 'location_list' %}">
-                            <li>All locations</li>
-                        </a>
-                        {% if request.user.is_staff %}
-                        <a class="subop" href="{% url 'location_create' %}">
-                            <li>• Add location</li>
-                        </a>
-                        {% endif %}
-
-                        <a href="{% url 'reservation_list' %}">
-                            <li>All reservations</li>
-                        </a>
-                        {% if not request.user.is_authenticated %}
-                        <a href="{% url 'profile_create' %}">
-                            <li>Register</li< /a>
-                                <a href="{% url 'log in' %}">
-                            <li>Log In</li>
-                        </a>
-                        {% else %}
-                        <a href="{% url 'logout' %}" style="color: red;">
-                            <li>Log Out</li>
-                        </a>
-                        {% endif %}
-                    </ul>
-                </div>
-            </nav>
-            <div class="greeting">
-                <h1>Cruise Company Name</h1>
-            </div>
-        </div>
-
         <div id="main-content">
-            <div class="gallery js-flickity" data-flickity='{ "wrapAround": true }'>
+            <div class="gallery js-flickity" data-flickity='{"wrapAround": true}'>
                 {% for i in cruises %}
                 {% if forloop.counter < 4 %}
                     <div class="gallery-cell">
@@ -349,7 +177,6 @@
                 {% endfor %}
             </div>
         </div>
-
         <div class="cards">
             <ul class="ul-cards">
                 {% for i in cruises %}
@@ -358,7 +185,7 @@
                             <img src="{{i.image_main}}" alt="">
                         </div>
                         <div class="bottom">
-                            <p>{{i}}</p>
+                            <p style="font-weight: bold;">{{i}}</p>
                             <p>Led by {{i.captain_name}}</p>
                             <p>Departs at: {{i.departure_date_time}}</p>
                             <p>Capacity: Economy-{{i.econ_total_capacity}} | Business-{{i.business_total_capacity}}</p>
@@ -370,7 +197,6 @@
         </div>
     </div>
 
-    <footer>Company Name©</footer>
 
     <script>
         /*!
@@ -5475,5 +5301,4 @@
 
     </script>
 </body>
-
-</html>
+{%endblock%}

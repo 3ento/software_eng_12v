@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sea Manager Cruise</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Avenir Next", "Avenir", sans-serif;
+            overflow-x: hidden;
+            color: black;
+        }
+
+        #menuToggle {
+            display: block;
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            z-index: 1;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        #menuToggle a {
+            text-decoration: none;
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        #menuToggle a:hover {
+            filter: drop-shadow(0 0 0.75rem black);
+        }
+
+        #menuToggle input {
+            display: block;
+            width: 40px;
+            height: 32px;
+            position: absolute;
+            top: -7px;
+            left: -5px;
+            cursor: pointer;
+            opacity: 0;
+            z-index: 2;
+            -webkit-touch-callout: none;
+        }
+
+        #menuToggle span {
+            display: block;
+            width: 33px;
+            height: 4px;
+            margin-bottom: 5px;
+            position: relative;
+            background: black;
+            border-radius: 3px;
+            z-index: 99;
+            transform-origin: 4px 0px;
+            transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+                background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+                opacity 0.55s ease;
+        }
+
+        #menuToggle span:first-child {
+            transform-origin: 0% 0%;
+        }
+
+        #menuToggle span:nth-last-child(2) {
+            transform-origin: 0% 100%;
+        }
+
+        #menuToggle input:checked~span {
+            opacity: 1;
+            transform: rotate(45deg) translate(-2px, -1px);
+            background: #232323;
+        }
+
+        #menuToggle input:checked~span:nth-last-child(3) {
+            opacity: 0;
+            transform: rotate(0deg) scale(0.2, 0.2);
+        }
+
+        #menuToggle input:checked~span:nth-last-child(2) {
+            transform: rotate(-45deg) translate(0, -1px);
+        }
+
+        #menu {
+            position: absolute;
+            width: 300px;
+            margin: -100px 0 0 -50px;
+            padding: 50px;
+            padding-top: 125px;
+            height: 100vh;
+            background: rgb(8,0,141);
+            background: linear-gradient(94deg, rgba(8,0,141,1) 0%, rgba(0,123,255,1) 26%, rgba(0,212,255,1) 100%); 
+            list-style-type: none;
+            -webkit-font-smoothing: antialiased;
+            transform-origin: 0% 0%;
+            transform: translate(-100%, 0);
+            transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        #menu li {
+            padding: 10px 0;
+            font-size: 22px;
+        }
+
+        #menuToggle input:checked~ul {
+            transform: none;
+        }
+
+        .head, footer {
+            background: rgb(8,0,141);
+background: linear-gradient(94deg, rgba(8,0,141,1) 0%, rgba(0,123,255,1) 26%, rgba(0,212,255,1) 100%);  
+            color: #fff;
+            padding: 20px;
+            vertical-align: middle;
+            filter: drop-shadow(0 0 0.75rem #007bff);
+        }  
+        .head h1 {
+            margin: 0;
+        }
+
+        .logout-btn {
+            background: red;
+            padding: 8px;
+            border-radius: 6px;
+            filter: drop-shadow(0 0 0.75rem black);
+            width: 33%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header class="head">
+        <div id="menuToggle">
+            <input type="checkbox" />
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+            <ul id="menu">
+                <div class="links">
+                    {% if request.user.is_staff %}
+                <a class="subop" href="{% url 'cruise_create' %}">
+                    <li>+ Add cruise</li>
+                </a>
+                {% endif %} 
+                <a href="{% url 'captain_list' %}">
+                    <li>All captains</li>
+                </a>
+                {% if request.user.is_staff %}
+                <a class="subop" href="{% url 'captain_create' %}">
+                    <li>+ Add captain</li>
+                </a>
+                {% endif %}
+    
+                <a href="{% url 'location_list' %}">
+                    <li>All locations</li>
+                </a>
+                {% if request.user.is_staff %}
+                <a class="subop" href="{% url 'location_create' %}">
+                    <li>+ Add location</li>
+                </a>
+                {% endif %}
+    
+                </div>
+                
+                <div class="logout">
+                    {% if not request.user.is_authenticated %}
+                <a href="{% url 'profile_create' %}">
+                    <li>Register</li<>
+                        <a href="{% url 'log in' %}">
+                    <li>Log In</li>
+                </a>
+                {% else %}
+                    <a href="{% url 'logout' %}">
+                        <li class="logout-btn">Log Out</li>
+                    </a>
+                </div>
+                
+                {% endif %}
+            </ul>
+        </div>
+            <div style="text-align: right;" class="logo">
+            <h1><a style="color: white; text-decoration: none;" href="{% url 'home' %}">Sea Manager Cruise</a></h1>
+        </div>
+    </header>
+    {% block  base %}
+    {%endblock%}
+    <footer>Sea Manager Cruise©</footer>
+</body>
+</html>
