@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from main.managers import AppUserManager
 
 
-class SeaManagerCruiseUser(AbstractBaseUser):
+class SeaManagerCruiseUser(AbstractBaseUser, PermissionsMixin):
 
     username = models.CharField(
         max_length=30,
@@ -89,6 +89,8 @@ class Cruise(models.Model):
 
     econ_total_capacity = models.IntegerField()
     business_total_capacity = models.IntegerField()
+
+    image_main = models.URLField(default='https://images.pexels.com/photos/813011/pexels-photo-813011.jpeg')
 
     def __str__(self):
         return f'{self.type} cruise: {self.from_location} - {self.to_location}'

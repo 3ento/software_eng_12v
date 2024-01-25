@@ -1,9 +1,151 @@
-<h1>Cruise N#{{cruise.id}}</h1>
-<h2>Type: {{cruise.type}}</h2>
-<h2>Route: From {{cruise.from_location}} to {{cruise.to_location}}</h2>
-<h3>Departure: {{cruise.departure_date_time}}</h3>
-<h3>Captain: {{cruise.captain_name}}</h3>
-<h4>Capacity(econonmy): {{cruise.econ_total_capacity}} (remaining: {{econ_cc}})</h4>
-<h4>Capacity(business): {{cruise.business_total_capacity}} (remaining: {{bus_cc}})</h4>
+<!DOCTYPE html>
+<html lang="en">
 
-<a href="{% url 'reserve' cruise.id %}"><li>Make reservation</li></a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cruise Details</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        section {
+            margin: 20px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        .gallery-small-img img{
+            height: 92px;
+            width: 112px;
+            margin: 10px 0;
+            opacity: 0.6;
+            cursor: pointer;
+            display: block;
+        }
+        .gallery-small-img img:hover{
+            opacity: 1;
+        }
+        .gallery-small-img{
+            float: left;
+        }
+        .gallery{
+            top: 35%;
+            left: 34%;
+            transform: translate(-50%,-50%);
+            position: absolute;
+
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+        .img-container img{
+            height: 500px;
+            width: 700px;
+        }
+        .img-container{
+            float: right;
+            padding: 10px;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <header>
+        <h1>Cruise Company Name</h1>
+    </header>
+
+    <div class="gallery">
+
+        <div class="gallery-small-img">
+            <!-- Placeholder for cruise photos -->
+            <img src="{{cruise.image_main}}" onclick="myFunction(this)">
+            <img src="{{cruise.image_main}}" onclick="myFunction(this)">
+            <img src="{{cruise.image_main}}" onclick="myFunction(this)">
+            <img src="{{cruise.image_main}}" onclick="myFunction(this)">
+            <img src="{{cruise.image_main}}" onclick="myFunction(this)">
+        </div>
+        <div class="img-container">
+            <img id="imageBox" src="{{cruise.image_main}}">
+        </div>
+
+        <div class="text">
+            <section>
+                <h2>Dates of the Cruise</h2>
+                <p>The first cruise is on 19.04.2024 and every week after that until the end of August!</p>
+            </section>
+
+            <section>
+                <h2>What's On Board</h2>
+                <p>Outdoor Swimming Pool, Arcade, Casino, Bar, Gym</p>
+            </section>
+
+            <section>
+                <h2>Places We'll Visit</h2>
+                <p>Santorini, Bora Bora, Kyoto, Venice, Sydney</p>
+            </section>
+
+            <section>
+                <h2>Food Options</h2>
+                <p>Embark on a culinary journey with our diverse and mouthwatering food options.</p>
+            </section>
+
+            <section>
+                <h2>Cabin Inclusions</h2>
+                <p>Spacious Accommodations, Private Balcony, Comfortable Bedding, In-room Entertainment, Wi-Fi</p>
+            </section>
+
+            <section>
+                <h2>Price</h2>
+                <p>Price is $700 per person</p>
+            </section>
+
+            <section>
+                <button href="{% url 'reserve' cruise.id %}">Purchase Now</button>
+            </section>
+        </div>
+        <a >
+            <li>Make reservation</li>
+        </a>
+    </div>
+
+    <script>
+        function purchaseCruise() {
+            // Add logic for the purchase button if needed
+            alert("Redirect to the purchase page or perform necessary actions.");
+        }
+        function myFunction(smallImg) {
+            var fullImg = document.getElementById("imageBox");
+            fullImg.src = smallImg.src;
+        }
+    </script>
+</body>
+
+</html>

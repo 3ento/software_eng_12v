@@ -11,5 +11,17 @@ from main.forms import CreateCruise, CreateCaptain, CreateLocation, CreateUserFo
 
 # Create your views here.
 
-class HomeView(TemplateView):
+class HomeView(ListView):
+    model = Cruise
+    context_object_name = 'cruises'
+
     template_name = "home.html"
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        
+        context.update({
+            'cruises': Cruise.objects.all(),
+        })
+        
+        return context
