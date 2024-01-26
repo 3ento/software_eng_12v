@@ -85,7 +85,7 @@
             padding: 10px;
             border-radius: 8px;
             color: white;
-            margin-top: 16px;
+            margin-top: -12px;
         }
 
         .content h3 {
@@ -130,7 +130,7 @@
             border-radius: 8px;
             box-shadow: 0 0 0.75rem black;
             width: 80%;
-            height: 200px;
+            height: 160px;
             z-index: -1;
             text-align: center;
         }
@@ -146,11 +146,11 @@
             padding: 24px;
         }
 
+
     </style>
 </head>
 
 <body>
-
     <div class="site">
         <div id="main-content">
             <div class="gallery js-flickity" data-flickity='{"wrapAround": true}'>
@@ -158,7 +158,7 @@
                 {% if forloop.counter < 4 %}
                     <div class="gallery-cell">
                         <div class="card">
-                            <div class="    top">
+                            <div class="top">
                                 <img src="{{i.image_main}}">
                             </div>
                             <div class="text">
@@ -182,19 +182,27 @@
                 {% for i in cruises %}
                     <li class="cruise-card">
                         <div class="top">
-                            <img src="{{i.image_main}}" alt="">
+                            <img src="{{i.image_main}}" onclick="window.open()">
                         </div>
                         <div class="bottom">
                             <p style="font-weight: bold;">{{i}}</p>
                             <p>Led by {{i.captain_name}}</p>
                             <p>Departs at: {{i.departure_date_time}}</p>
                             <p>Capacity: Economy-{{i.econ_total_capacity}} | Business-{{i.business_total_capacity}}</p>
-                            <a class="details-btn" href="{% url 'cruise_details' i.id %}">See details</a>
                         </div>
+                        <a class="details-btn" href="{% url 'cruise_details' i.id %}">See details</a>
+
                     </li>
                 {% endfor %}    
             </ul>
         </div>
+        <script>
+
+            function goTo(location){
+                window.location = location;
+            }
+            
+        </script>
     </div>
 
 

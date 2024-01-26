@@ -86,7 +86,7 @@
 
         #menu {
             position: absolute;
-            width: 300px;
+            width: 170px;
             margin: -100px 0 0 -50px;
             padding: 50px;
             padding-top: 125px;
@@ -126,10 +126,9 @@ background: linear-gradient(94deg, rgba(8,0,141,1) 0%, rgba(0,123,255,1) 26%, rg
 
         .logout-btn {
             background: red;
-            padding: 8px;
+            padding: 4px;
             border-radius: 6px;
             filter: drop-shadow(0 0 0.75rem black);
-            width: 33%;
             text-align: center;
         }
     </style>
@@ -145,6 +144,7 @@ background: linear-gradient(94deg, rgba(8,0,141,1) 0%, rgba(0,123,255,1) 26%, rg
 
             <ul id="menu">
                 <div class="links">
+                <li style="text-decoration: underline;">Hello {{request.user.username}} :D</li>
                     {% if request.user.is_staff %}
                 <a class="subop" href="{% url 'cruise_create' %}">
                     <li>+ Add cruise</li>
@@ -185,6 +185,8 @@ background: linear-gradient(94deg, rgba(8,0,141,1) 0%, rgba(0,123,255,1) 26%, rg
                 
                 {% endif %}
             </ul>
+        
+        
         </div>
             <div style="text-align: right;" class="logo">
             <h1><a style="color: white; text-decoration: none;" href="{% url 'home' %}">Sea Manager Cruise</a></h1>
